@@ -29,64 +29,80 @@
 // console.log(heap.getMin());   // should print 'undefined'
 // Analyze the time and space complexity of your implementation.
 
-class MinHeap{
-    constructor() {
+class MinHeap {
+  constructor() {
     this.storage = [];
-    }
-    insert(value){
-      this.storage.push(value)
-      let index = this.storage.length-1
-      this.bubbleUp(index);
-    }
+  }
+  insert(value) {
+    this.storage.push(value);
+    let index = this.storage.length - 1;
+    this.bubbleUp(index);
+  }
 
-    delete(){
-      if(!this.storage.length) return
-      if(this.storage.length === 1) return this.storage.pop()
-      let min = this.storage[0];
-      let endValue = this.storage.pop()
-      this.storage[0] = endValue;
-      this.siftDown[0]
-      return min;
-    }
+  delete() {
+    if (!this.storage.length) return;
+    if (this.storage.length === 1) return this.storage.pop();
+    let min = this.storage[0];
+    let endValue = this.storage.pop();
+    this.storage[0] = endValue;
+    this.siftDown(0);
+    return min;
+  }
 
-    getMin(){
-      return this.storage[0]
-    }
-    bubbleUp(index){
-      let parentIndex = (index-1)/2 | 0
-      if (this.storage[parentIndex] > this.storage[index]) {
-        [this.storage[parentIndex], this.storage[index]] = [this.storage[index], this.storage[parentIndex]]
-        this.bubbleUp(parentIndex)
-      }
-    }
-
-    siftDown(index){
-      let leftChildIndex = index*2+1
-      let rightChildIndex = index*2+2
-      let minChildIndex;
-      if (this.storage[leftChildIndex && this.storage[rightChildIndex]]){
-        minChildIndex = this.storage[leftChildIndex] < this.storage[rightChildIndex] ? leftChildIndex : rightChildIndex
-      }else{minChildIndex = leftChildIndex }
-
-      [this.storage[minChildIndex], this.storage[index]] = [this.storage[index], this.storage[minChildIndex]]
+  getMin() {
+    return this.storage[0];
+  }
+  bubbleUp(index) {
+    let parentIndex = ((index - 1) / 2) | 0;
+    if (this.storage[parentIndex] > this.storage[index]) {
+      [this.storage[parentIndex], this.storage[index]] = [
+        this.storage[index],
+        this.storage[parentIndex]
+      ];
+      this.bubbleUp(parentIndex);
     }
   }
 
+  siftDown(index) {
+    let leftChildIndex = index * 2 + 1;
+    let rightChildIndex = index * 2 + 2;
+    let minChildIndex;
+    if (this.storage[leftChildIndex && this.storage[rightChildIndex]]) {
+      minChildIndex =
+        this.storage[leftChildIndex] < this.storage[rightChildIndex]
+          ? leftChildIndex
+          : rightChildIndex;
+    } else {
+      minChildIndex = leftChildIndex;
+    }
 
-  const heap = new MinHeap();
-  console.log(heap.getMin());    // should print 'undefined'
+    if (this.storage[index] > this.storage[minChildIndex]) {
+      [this.storage[minChildIndex], this.storage[index]] = [
+        this.storage[index],
+        this.storage[minChildIndex]
+      ];
+      this.siftDown(minChildIndex)
+    }
+  }
+}
 
-  heap.insert(5);
-  console.log(heap.getMin());   // should print 5
+const heap = new MinHeap();
+console.log(heap.getMin()); // should print 'undefined'
 
-  heap.insert(100);
-  console.log(heap.getMin());   // should print 5
+heap.insert(5);
+console.log(heap.getMin()); // should print 5
 
-  heap.insert(2);
-  console.log(heap.getMin());   // should print 2
+heap.insert(100);
+console.log(heap.getMin()); // should print 5
 
-  console.log(heap.delete());   // should print 2
-  console.log(heap.delete());   // should print 5
-  console.log(heap.delete());   // should print 100
+heap.insert(2);
+console.log(heap.getMin()); // should print 2
 
-  console.log(heap.getMin());   // should print 'undefined'
+console.log(heap.delete()); // should print 2
+console.log(heap);
+console.log(heap.delete()); // should print 5
+
+console.log(heap);
+console.log(heap.delete()); // should print 100
+
+console.log(heap.getMin()); // should print 'undefined'
