@@ -35,7 +35,7 @@ function poisonousPlant(plants) {
   for (var i = 0; i < plants.length; i++) {
     var daysAlive = 0;
 
-    // remove top of stack until it's the smallest
+    // remove end of stack until current plant is larger than the end of stack
     while (stack.length > 0 && plants[i] <= stack[stack.length - 1].plant) {
       // current plant lives at least as long as the plants it kills
       daysAlive = Math.max(daysAlive, stack.pop().days);
@@ -51,6 +51,9 @@ function poisonousPlant(plants) {
     // is smaller that will kill the current plant.  We kill it the
     // next day so we add 1 to its days alive (remembering that it
     // lived for as long as the plants it killed)
+
+    // for example, if plants array goes from 1,3,2.  On the first day 1 kills 3, but 3 doesn't kill 2.  One second day 1 kills 2.
+    //
     else {
       daysAlive += 1;
     }
